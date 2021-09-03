@@ -37,9 +37,15 @@ app.post("/reverse", (req, res) => {
 });
 
 app.post("/echo", (req, res) => {
-  res.json(req.body);
+  res.status(404).json({ error: "nåt gick fel" });
+  //res.json(req.body);
 });
-
+app.get("/rnm/:s", (req, res) => {
+  fetch(`https://rickandmortyapi.com/api/character/?name=${req.params.s}`)
+    .then((result) => result.json())
+    .then((result) => res.json(result))
+    .catch((err) => res.status(500).send());
+});
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
