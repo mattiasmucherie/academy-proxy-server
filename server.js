@@ -37,8 +37,11 @@ app.post("/reverse", (req, res) => {
 });
 
 app.post("/echo", (req, res) => {
-  res.status(404).json({ error: "nåt gick fel" });
-  //res.json(req.body);
+  if (!req.body) {
+    res.status(404).json({ error: "Something went wrong" });
+  } else {
+    res.json(req.body);
+  }
 });
 app.get("/rnm/:s", (req, res) => {
   fetch(`https://rickandmortyapi.com/api/character/?name=${req.params.s}`)
